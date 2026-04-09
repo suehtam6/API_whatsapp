@@ -115,36 +115,38 @@ const getContatosMensagem = function (numero) {
 
             })
 
-            
-            
+
+
 
         }
 
 
     })
-    if(listaDadosContatos == '' || listaDadosContatos == null || listaDadosContatos.numero){
+    if (listaDadosContatos == '' || listaDadosContatos == null || listaDadosContatos.numero) {
         return false
-    }else{
+    } else {
         return listaDadosContatos
     }
-    
+
 
 }
 
-const getFiltroMensagem = function(mensagem){
+const getFiltroMensagem = function (mensagem) {
     let palavra = mensagem
     let listaPalavra = []
 
-    contato.forEach(function(itemUsuario){
-        itemUsuario.contacts.forEach(function(itemMensagem){
-            itemMensagem.messages.forEach(function(guardarMensagem){
-                if(palavra == guardarMensagem.content){
+    contato.forEach(function (itemUsuario) {
+        itemUsuario.contacts.forEach(function (itemMensagem) {
+            itemMensagem.messages.forEach(function (guardarMensagem) {
+                if (palavra == guardarMensagem.content) {
 
                     dados = {
-                        mensagem : guardarMensagem.content
+                        nome : itemMensagem.name,
+                        mensagem: guardarMensagem.content
                     }
 
                     listaPalavra.push(dados)
+
                 }
 
             })
@@ -152,8 +154,12 @@ const getFiltroMensagem = function(mensagem){
         })
 
     })
+    if (listaPalavra == '' || listaPalavra == null || listaPalavra.mensagem) {
+        return false
+    } else {
+        return listaPalavra
 
-    return listaPalavra
+    }
 }
 
 
@@ -162,4 +168,4 @@ const getFiltroMensagem = function(mensagem){
 // console.log(getContatosUsuario(11966578996)) 3
 //console.log(getListaMensagem(11966578996)) 4
 // console.log(getContatosMensagem(11966578996)) 5
-console.log(getFiltroMensagem("Great to hear that. Do you have any plans for the weekend?"))
+console.log(getFiltroMensagem("Yes, I have. They look great!"))
