@@ -12,7 +12,12 @@ const contato = whatsapp.contatos["whats-users"]
 const getDadosUsuario = function () {
     let listaDadosUsuario = [contato]
 
-    return listaDadosUsuario
+    if(listaDadosUsuario == '' || listaDadosUsuario == null){
+        return false
+    }else{
+        return listaDadosUsuario
+    }
+    
 }
 
 const getContaUsuario = function (numero) {
@@ -38,7 +43,7 @@ const getContaUsuario = function (numero) {
 
 
     })
-    if (listaConta == '') {
+    if (listaConta == '' || listaConta == null || !listaConta) {
         return false
     } else {
         return listaConta
@@ -64,8 +69,11 @@ const getContatosUsuario = function (numero) {
             })
         }
     })
-
-    return listaContato
+    if (listaContato == '' || listaContato == null) {
+        return false
+    } else {
+        return listaContato
+    }
 }
 
 const getListaMensagem = function (numero) {
@@ -132,40 +140,44 @@ const getContatosMensagem = function (numero) {
 }
 
 const getFiltroMensagem = function (mensagem) {
-    let palavra = mensagem
+    
+    let palavraBusca = mensagem.toLowerCase()
     let listaPalavra = []
 
     contato.forEach(function (itemUsuario) {
-        itemUsuario.contacts.forEach(function (itemMensagem) {
-            itemMensagem.messages.forEach(function (guardarMensagem) {
-                if (palavra == guardarMensagem.content) {
+        itemUsuario.contacts.forEach(function (itemContato) {
+            itemContato.messages.forEach(function (itemMensagem) {
+                
+                // Aqui eu iria transformar os conteudos de itemMensagem em minusculo, 
+                // assim posso comparar caso esteja maiusculo ou minusculo
+                let conteudoMensagem = itemMensagem.content.toLowerCase()
 
-                    dados = {
-                        nome : itemMensagem.name,
-                        mensagem: guardarMensagem.content
-                    }
+                // uso includes pra verificar se a mensagem contém a palavra digitada
+                if (conteudoMensagem.includes(palavraBusca)) {
+                    
+                    const dados = {
+                        contato: itemContato.name,
+                        mensagem: itemMensagem.content,
+                        data: itemMensagem.time
+                    };
 
                     listaPalavra.push(dados)
-
                 }
+            });
+        });
+    });
 
-            })
-
-        })
-
-    })
-    if (listaPalavra == '' || listaPalavra == null || listaPalavra.mensagem) {
+    if(listaPalavra == null || listaPalavra == "" || !listaPalavra){
         return false
-    } else {
+    }else{
         return listaPalavra
-
     }
+    
 }
 
-
-// console.log(getDadosUsuario()) 1
-// console.log(getContaUsuario(11966578996)) 2
-// console.log(getContatosUsuario(11966578996)) 3
-//console.log(getListaMensagem(11966578996)) 4
-// console.log(getContatosMensagem(11966578996)) 5
-console.log(getFiltroMensagem("Yes, I have. They look great!"))
+// console.log(getDadosUsuario()) //1
+// console.log(getContaUsuario(11966578996)) //2
+// console.log(getContatosUsuario(11966578996)) //3
+// console.log(getListaMensagem(11966578996)) //4
+// console.log(getContatosMensagem(11966578996)) //5
+// console.log(getFiltroMensagem("Great")) //6
