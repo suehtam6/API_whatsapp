@@ -18,7 +18,7 @@ const getDadosUsuario = function () {
         return listaDadosUsuario
     }
     
-}
+} // Fecha a function
 
 const getContaUsuario = function (numero) {
     let listaConta = []
@@ -49,7 +49,7 @@ const getContaUsuario = function (numero) {
         return listaConta
     }
 
-}
+} // Fecha a function
 
 const getContatosUsuario = function (numero) {
     let listaContato = []
@@ -66,15 +66,19 @@ const getContatosUsuario = function (numero) {
 
                 listaContato.push(dados)
 
-            })
-        }
-    })
+            }) 
+
+        } // Fecha itemContato
+
+    }) // Fecha contato
+
+
     if (listaContato == '' || listaContato == null) {
         return false
     } else {
         return listaContato
     }
-}
+} // Fecha a function
 
 const getListaMensagem = function (numero) {
     let listaMensagem = []
@@ -89,15 +93,16 @@ const getListaMensagem = function (numero) {
 
                 listaMensagem.push(dados)
             })
-        }
+        } // Fecha itemUsuario
 
-    })
+    }) // Fecha contato 
     if (listaMensagem == '' || listaMensagem == null) {
         return false
     } else {
         return listaMensagem
     }
-}
+
+} // Fecha function
 
 const getContatosMensagem = function (numero) {
     let listaDadosContatos = []
@@ -121,15 +126,17 @@ const getContatosMensagem = function (numero) {
 
                 listaDadosContatos.push(dadosMensagem)
 
-            })
+            }) 
 
 
 
 
-        }
+        } // Fecha itemContato
 
 
-    })
+    }) // Fecha contato
+
+
     if (listaDadosContatos == '' || listaDadosContatos == null || listaDadosContatos.numero) {
         return false
     } else {
@@ -137,7 +144,7 @@ const getContatosMensagem = function (numero) {
     }
 
 
-}
+} // Fecha a function
 
 const getFiltroMensagem = function (mensagem) {
     
@@ -159,13 +166,16 @@ const getFiltroMensagem = function (mensagem) {
                         contato: itemContato.name,
                         mensagem: itemMensagem.content,
                         data: itemMensagem.time
-                    };
+                    }
 
                     listaPalavra.push(dados)
                 }
-            });
-        });
-    });
+
+            }) // Fecha itemContato
+
+        }) // Fecha itemUsuario
+
+    }) // Fecha contato
 
     if(listaPalavra == null || listaPalavra == "" || !listaPalavra){
         return false
@@ -173,7 +183,7 @@ const getFiltroMensagem = function (mensagem) {
         return listaPalavra
     }
     
-}
+} // Fecha a function
 
 // console.log(getDadosUsuario()) //1
 // console.log(getContaUsuario(11966578996)) //2
