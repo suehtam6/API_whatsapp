@@ -220,8 +220,6 @@ const getFiltroMensagem = function (Palavra, numero) {
     
 } // Fecha a function
 
-console.log(getFiltroMensagem('great', 11987876567))
-
 module.exports = {
     getDadosUsuario,
     getContaUsuario,
