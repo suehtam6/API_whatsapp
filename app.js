@@ -113,7 +113,8 @@ app.get('/v1/whatsapp/contato/mensagem/', function(request, response){
 
 app.get('/v1/whatsapp/filtro/mensagem/', function(request, response){
     let palavra = request.query.palavra
-    let filtroMensagem = whatsapp.getFiltroMensagem(palavra)
+    let numero = request.query.numero
+    let filtroMensagem = whatsapp.getFiltroMensagem(palavra, numero)
 
     if(filtroMensagem){
         response.status(200)
