@@ -10,8 +10,15 @@ const contato = whatsapp.contatos["whats-users"]
 
 
 const getDadosUsuario = function () {
-    let listaDadosUsuario = [contato]
+    let listaDadosUsuario = []
+    let dados = {
+        'status' : true,
+        'status_code' : 200,
+        'development' : 'Matheus Lucas de Freitas Zacarias',
+        contato
+    }
 
+    listaDadosUsuario.push(dados)
     if(listaDadosUsuario == '' || listaDadosUsuario == null){
         return false
     }else{
@@ -26,13 +33,16 @@ const getContaUsuario = function (numero) {
     contato.forEach(function (itemConta) {
         if (entradaNumero == itemConta.number) {
             dados = {
-                nome         : itemConta.account,
-                nick         : itemConta.nickname,
-                numero       : itemConta.number,
-                foto         : itemConta["profile-image"],
-                corFundo     : itemConta.background,
-                StartConta   : itemConta["created-since"].start,
-                EndConta     : itemConta["created-since"].end
+                'status'        : true,
+                'status_code'   : 200,
+                'development'   : 'Matheus Lucas de Freitas Zacarias',
+                nome            : itemConta.account,
+                nick            : itemConta.nickname,
+                numero          : itemConta.number,
+                foto            : itemConta["profile-image"],
+                corFundo        : itemConta.background,
+                StartConta      : itemConta["created-since"].start,
+                EndConta        : itemConta["created-since"].end
             }
 
             listaConta.push(dados)
@@ -57,9 +67,12 @@ const getContatosUsuario = function (numero) {
         if (entradaNumero == itemContato.number) {
             itemContato.contacts.forEach(function (itemDescricaoContato) {
                 dados = {
-                    nome        : itemDescricaoContato.name,
-                    descricao   : itemDescricaoContato.description,
-                    foto        : itemDescricaoContato.image
+                    'status'        : true,
+                    'status_code'   : 200,
+                    'development'   : 'Matheus Lucas de Freitas Zacarias',
+                    nome            : itemDescricaoContato.name,
+                    descricao       : itemDescricaoContato.description,
+                    foto            : itemDescricaoContato.image
                 }
 
                 listaContato.push(dados)
@@ -86,7 +99,15 @@ const getListaMensagem = function (numero) {
         if (entradaNumero == itemUsuario.number) {
             itemUsuario.contacts.forEach(function (itemMensagem) {
                 dados = {
-                    mensagem    : itemMensagem.messages
+                    'status' : true,
+                    'status_code' : 200,
+                    'development' : 'Matheus Lucas de Freitas Zacarias',
+                    contato       : itemMensagem.name,
+                    descrição     : itemMensagem.description,
+                    imagem        : itemMensagem.image,
+                    mensagem      : itemMensagem.messages,
+
+                    
                 }
 
                 listaMensagem.push(dados)
@@ -110,16 +131,19 @@ const getContatosMensagem = function (numero, nome) {
 
     contato.forEach(function (itemContato) {
 
-        if (entradaNumero == itemContato.number && nomeContato == itemContato.account) {
+        if (entradaNumero == itemContato.number) {
            
             itemContato.contacts.forEach(function (itemMensagem) {
 
-                if(itemMensagem){
+                if(nomeContato == itemMensagem.name){
                     dadosMensagem = {
-                    nome        : itemContato.account,
-                    numero      : itemContato.number,
-                    Contato     : itemMensagem.name,
-                    mensagem    : itemMensagem.messages
+                    'status'        : true,
+                    'status_code'   : 200,
+                    'development'   : 'Matheus Lucas de Freitas Zacarias',
+                    nome            : itemContato.account,
+                    numero          : itemContato.number,
+                    Contato         : itemMensagem.name,
+                    mensagem        : itemMensagem.messages
                 }
 
                 listaDadosContatos.push(dadosMensagem)
@@ -163,12 +187,18 @@ const getFiltroMensagem = function (Palavra) {
                 // uso includes pra verificar se a mensagem contém a palavra digitada
                 if (conteudoMensagem.includes(filtroMensagem)) {
                     
+                    
                     dados = {
-                        contato     : itemContato.name,
-                        mensagem    : itemMensagem.content,
-                        data        : itemMensagem.time
+                        'status' : true,
+                        'status_code'   : 200,
+                        'development'   : 'Matheus Lucas de Freitas Zacarias',
+                        nome            : itemUsuario.account,
+                        número          : itemUsuario.number,
+                        contato         : itemContato.name,
+                        mensagem        : itemMensagem.content,
+                        data            : itemMensagem.time
                     }
-
+                    
                     listaPalavra.push(dados)
                 }
 
@@ -186,9 +216,12 @@ const getFiltroMensagem = function (Palavra) {
     
 } // Fecha a function
 
-// console.log(getDadosUsuario()) //1
-// console.log(getContaUsuario(11966578996)) //2
-// console.log(getContatosUsuario(11966578996)) //3
-// console.log(getListaMensagem(11966578996)) //4
-// console.log(getContatosMensagem('11987876567', "Ricardo da Silva")) //5
-// console.log(getFiltroMensagem("Great")) //6
+module.exports = {
+    getDadosUsuario,
+    getContaUsuario,
+    getContatosUsuario,
+    getListaMensagem,
+    getContatosMensagem,
+    getFiltroMensagem
+}
+
