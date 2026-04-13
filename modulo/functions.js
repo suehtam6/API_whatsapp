@@ -26,18 +26,16 @@ const getContaUsuario = function (numero) {
     contato.forEach(function (itemConta) {
         if (entradaNumero == itemConta.number) {
             dados = {
-                nome: itemConta.account,
-                nick: itemConta.nickname,
-                numero: itemConta.number,
-                foto: itemConta["profile-image"],
-                corFundo: itemConta.background,
-                StartConta: itemConta["created-since"].start,
-                EndConta: itemConta["created-since"].end
+                nome         : itemConta.account,
+                nick         : itemConta.nickname,
+                numero       : itemConta.number,
+                foto         : itemConta["profile-image"],
+                corFundo     : itemConta.background,
+                StartConta   : itemConta["created-since"].start,
+                EndConta     : itemConta["created-since"].end
             }
 
             listaConta.push(dados)
-        } else {
-            return false
         }
 
 
@@ -59,9 +57,9 @@ const getContatosUsuario = function (numero) {
         if (entradaNumero == itemContato.number) {
             itemContato.contacts.forEach(function (itemDescricaoContato) {
                 dados = {
-                    nome: itemDescricaoContato.name,
-                    descricao: itemDescricaoContato.description,
-                    foto: itemDescricaoContato.image
+                    nome        : itemDescricaoContato.name,
+                    descricao   : itemDescricaoContato.description,
+                    foto        : itemDescricaoContato.image
                 }
 
                 listaContato.push(dados)
@@ -88,7 +86,7 @@ const getListaMensagem = function (numero) {
         if (entradaNumero == itemUsuario.number) {
             itemUsuario.contacts.forEach(function (itemMensagem) {
                 dados = {
-                    mensagem: itemMensagem.messages
+                    mensagem    : itemMensagem.messages
                 }
 
                 listaMensagem.push(dados)
@@ -104,31 +102,32 @@ const getListaMensagem = function (numero) {
 
 } // Fecha function
 
-const getContatosMensagem = function (numero) {
+const getContatosMensagem = function (numero, nome) {
     let listaDadosContatos = []
+    let dadosMensagem = {}
+    let nomeContato = nome
     let entradaNumero = numero
 
     contato.forEach(function (itemContato) {
 
-        if (entradaNumero == itemContato.number) {
-            dados = {
-                nome: itemContato.account,
-                numero: itemContato.number,
+        if (entradaNumero == itemContato.number && nomeContato == itemContato.account) {
+           
+            itemContato.contacts.forEach(function (itemMensagem) {
 
-            }
-
-            listaDadosContatos.push(dados)
-
-            mensagens = itemContato.contacts.forEach(function (itemMensagem) {
-                dadosMensagem = {
-                    mensagem: itemMensagem.messages
+                if(itemMensagem){
+                    dadosMensagem = {
+                    nome        : itemContato.account,
+                    numero      : itemContato.number,
+                    Contato     : itemMensagem.name,
+                    mensagem    : itemMensagem.messages
                 }
 
                 listaDadosContatos.push(dadosMensagem)
 
-            }) 
+                } // fecha if dadosMensagem
 
-
+                
+            }) // Fecha mensagem
 
 
         } // Fecha itemContato
@@ -146,26 +145,28 @@ const getContatosMensagem = function (numero) {
 
 } // Fecha a function
 
-const getFiltroMensagem = function (mensagem) {
+const getFiltroMensagem = function (Palavra) {
     
-    let palavraBusca = mensagem.toLowerCase()
+    let filtroMensagem = Palavra.toLowerCase()
     let listaPalavra = []
+    let conteudoMensagem = ''
+
 
     contato.forEach(function (itemUsuario) {
         itemUsuario.contacts.forEach(function (itemContato) {
             itemContato.messages.forEach(function (itemMensagem) {
                 
                 // Aqui eu iria transformar os conteudos de itemMensagem em minusculo, 
-                // assim posso comparar caso esteja maiusculo ou minusculo
-                let conteudoMensagem = itemMensagem.content.toLowerCase()
+                // assim posso comparar as mensagens
+                conteudoMensagem = itemMensagem.content.toLowerCase()
 
                 // uso includes pra verificar se a mensagem contém a palavra digitada
-                if (conteudoMensagem.includes(palavraBusca)) {
+                if (conteudoMensagem.includes(filtroMensagem)) {
                     
-                    const dados = {
-                        contato: itemContato.name,
-                        mensagem: itemMensagem.content,
-                        data: itemMensagem.time
+                    dados = {
+                        contato     : itemContato.name,
+                        mensagem    : itemMensagem.content,
+                        data        : itemMensagem.time
                     }
 
                     listaPalavra.push(dados)
@@ -189,5 +190,5 @@ const getFiltroMensagem = function (mensagem) {
 // console.log(getContaUsuario(11966578996)) //2
 // console.log(getContatosUsuario(11966578996)) //3
 // console.log(getListaMensagem(11966578996)) //4
-// console.log(getContatosMensagem(11966578996)) //5
+// console.log(getContatosMensagem('11987876567', "Ricardo da Silva")) //5
 // console.log(getFiltroMensagem("Great")) //6
