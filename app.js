@@ -154,7 +154,7 @@ app.get('/v1/whatsapp/help', function(request,response){
             },
             {
                 "router6" : "/v1/whatsapp/filtro/mensagem/:palavra",
-                "description" : "Retorna as mensagems que tem uma certa palavra que você encaminhar via Query(palavra)",
+                "description" : "Retorna as mensagems que tem uma certa palavra que você encaminhar via Query(palavra, numero)",
             },
             
         ]
