@@ -169,7 +169,7 @@ const getContatosMensagem = function (numero, nome) {
 
 } // Fecha a function
 
-const getFiltroMensagem = function (Palavra) {
+const getFiltroMensagem = function (Palavra, numero) {
     
     let filtroMensagem = Palavra.toLowerCase()
     let listaPalavra = []
@@ -177,35 +177,39 @@ const getFiltroMensagem = function (Palavra) {
 
 
     contato.forEach(function (itemUsuario) {
-        itemUsuario.contacts.forEach(function (itemContato) {
-            itemContato.messages.forEach(function (itemMensagem) {
-                
-                // Aqui eu iria transformar os conteudos de itemMensagem em minusculo, 
-                // assim posso comparar as mensagens
-                conteudoMensagem = itemMensagem.content.toLowerCase()
 
-                // uso includes pra verificar se a mensagem contém a palavra digitada
-                if (conteudoMensagem.includes(filtroMensagem)) {
+        if(numero == itemUsuario.number){
+            itemUsuario.contacts.forEach(function (itemContato) {
+                itemContato.messages.forEach(function (itemMensagem) {
                     
-                    
-                    dados = {
-                        'status' : true,
-                        'status_code'   : 200,
-                        'development'   : 'Matheus Lucas de Freitas Zacarias',
-                        nome            : itemUsuario.account,
-                        número          : itemUsuario.number,
-                        contato         : itemContato.name,
-                        mensagem        : itemMensagem.content,
-                        data            : itemMensagem.time
+                    // Aqui eu iria transformar os conteudos de itemMensagem em minusculo, 
+                    // assim posso comparar as mensagens
+                    conteudoMensagem = itemMensagem.content.toLowerCase()
+    
+                    // uso includes pra verificar se a mensagem contém a palavra digitada
+                    if (conteudoMensagem.includes(filtroMensagem)) {
+                        
+                        
+                        dados = {
+                            'status' : true,
+                            'status_code'   : 200,
+                            'development'   : 'Matheus Lucas de Freitas Zacarias',
+                            nome            : itemUsuario.account,
+                            numero          : itemUsuario.number,
+                            contato         : itemContato.name,
+                            mensagem        : itemMensagem.content,
+                            data            : itemMensagem.time
+                        }
+                        
+                        listaPalavra.push(dados)
                     }
-                    
-                    listaPalavra.push(dados)
-                }
+    
+                }) // Fecha itemContato
+    
+            }) // Fecha itemUsuario
 
-            }) // Fecha itemContato
-
-        }) // Fecha itemUsuario
-
+        } 
+    
     }) // Fecha contato
 
     if(listaPalavra == null || listaPalavra == "" || !listaPalavra){
@@ -215,6 +219,8 @@ const getFiltroMensagem = function (Palavra) {
     }
     
 } // Fecha a function
+
+console.log(getFiltroMensagem('great', 11987876567))
 
 module.exports = {
     getDadosUsuario,
