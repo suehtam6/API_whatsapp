@@ -7,14 +7,17 @@
 
 const whatsapp = require("./contatos")
 const contato = whatsapp.contatos["whats-users"]
+const dadosJson = {
+                    'status'  :       true,
+                    'status_code' :   200,
+                    'development' :  'Matheus Lucas de Freitas Zacarias'
+    }
 
 
 const getDadosUsuario = function () {
     let listaDadosUsuario = []
     let dados = {
-        'status' : true,
-        'status_code' : 200,
-        'development' : 'Matheus Lucas de Freitas Zacarias',
+        dadosJson,
         contato
     }
 
@@ -30,12 +33,11 @@ const getDadosUsuario = function () {
 const getContaUsuario = function (numero) {
     let listaConta = []
     let entradaNumero = numero
+    
+
     contato.forEach(function (itemConta) {
         if (entradaNumero == itemConta.number) {
             dados = {
-                'status'        : true,
-                'status_code'   : 200,
-                'development'   : 'Matheus Lucas de Freitas Zacarias',
                 nome            : itemConta.account,
                 nick            : itemConta.nickname,
                 numero          : itemConta.number,
@@ -54,6 +56,7 @@ const getContaUsuario = function (numero) {
     if (listaConta == '' || listaConta == null || !listaConta) {
         return false
     } else {
+        listaConta.unshift(dadosJson)
         return listaConta
     }
 
@@ -62,14 +65,12 @@ const getContaUsuario = function (numero) {
 const getContatosUsuario = function (numero) {
     let listaContato = []
     let entradaNumero = numero
-
+    
     contato.forEach(function (itemContato) {
         if (entradaNumero == itemContato.number) {
             itemContato.contacts.forEach(function (itemDescricaoContato) {
                 dados = {
-                    'status'        : true,
-                    'status_code'   : 200,
-                    'development'   : 'Matheus Lucas de Freitas Zacarias',
+                    
                     nome            : itemDescricaoContato.name,
                     descricao       : itemDescricaoContato.description,
                     foto            : itemDescricaoContato.image
@@ -87,6 +88,7 @@ const getContatosUsuario = function (numero) {
     if (listaContato == '' || listaContato == null) {
         return false
     } else {
+        listaContato.unshift(dadosJson)
         return listaContato
     }
 } // Fecha a function
@@ -94,14 +96,12 @@ const getContatosUsuario = function (numero) {
 const getListaMensagem = function (numero) {
     let listaMensagem = []
     let entradaNumero = numero
+    
 
     contato.forEach(function (itemUsuario) {
         if (entradaNumero == itemUsuario.number) {
             itemUsuario.contacts.forEach(function (itemMensagem) {
                 dados = {
-                    'status' : true,
-                    'status_code' : 200,
-                    'development' : 'Matheus Lucas de Freitas Zacarias',
                     contato       : itemMensagem.name,
                     descrição     : itemMensagem.description,
                     imagem        : itemMensagem.image,
@@ -118,6 +118,7 @@ const getListaMensagem = function (numero) {
     if (listaMensagem == '' || listaMensagem == null) {
         return false
     } else {
+        listaMensagem.unshift(dadosJson)
         return listaMensagem
     }
 
@@ -126,8 +127,10 @@ const getListaMensagem = function (numero) {
 const getContatosMensagem = function (numero, nome) {
     let listaDadosContatos = []
     let dadosMensagem = {}
-    let nomeContato = nome
+    let nomeContato = String(nome).toUpperCase()
     let entradaNumero = numero
+    
+
 
     contato.forEach(function (itemContato) {
 
@@ -135,11 +138,8 @@ const getContatosMensagem = function (numero, nome) {
            
             itemContato.contacts.forEach(function (itemMensagem) {
 
-                if(nomeContato == itemMensagem.name){
+                if(nomeContato == itemMensagem.name.toUpperCase()){
                     dadosMensagem = {
-                    'status'        : true,
-                    'status_code'   : 200,
-                    'development'   : 'Matheus Lucas de Freitas Zacarias',
                     nome            : itemContato.account,
                     numero          : itemContato.number,
                     Contato         : itemMensagem.name,
@@ -163,6 +163,7 @@ const getContatosMensagem = function (numero, nome) {
     if (listaDadosContatos == '' || listaDadosContatos == null || listaDadosContatos.numero) {
         return false
     } else {
+        listaDadosContatos.unshift(dadosJson)
         return listaDadosContatos
     }
 
@@ -174,7 +175,7 @@ const getFiltroMensagem = function (Palavra, numero) {
     let filtroMensagem = Palavra.toLowerCase()
     let listaPalavra = []
     let conteudoMensagem = ''
-
+    
 
     contato.forEach(function (itemUsuario) {
 
@@ -191,9 +192,6 @@ const getFiltroMensagem = function (Palavra, numero) {
                         
                         
                         dados = {
-                            'status' : true,
-                            'status_code'   : 200,
-                            'development'   : 'Matheus Lucas de Freitas Zacarias',
                             nome            : itemUsuario.account,
                             numero          : itemUsuario.number,
                             contato         : itemContato.name,
@@ -215,10 +213,12 @@ const getFiltroMensagem = function (Palavra, numero) {
     if(listaPalavra == null || listaPalavra == "" || !listaPalavra){
         return false
     }else{
+        listaPalavra.unshift(dadosJson)
         return listaPalavra
     }
     
 } // Fecha a function
+
 
 module.exports = {
     getDadosUsuario,
