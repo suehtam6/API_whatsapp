@@ -153,7 +153,7 @@ app.get('/v1/whatsapp/help', function(request,response){
                 "description" : "Retorna as mensagem dos contatos do usuário utilizando via Query(numero e nome), mande o número e o nome do contato",
             },
             {
-                "router6" : "/v1/whatsapp/filtro/mensagem/:palavra",
+                "router6" : "/v1/whatsapp/filtro/mensagem/",
                 "description" : "Retorna as mensagems que tem uma certa palavra que você encaminhar via Query(palavra, numero)",
             },
             
